@@ -1,0 +1,17 @@
+<div class="min-h-80 flex flex-col overflow-auto max-h-[88vh]">
+    <div class="w-full min-h-10 shadow-md flex justify-between items-center">
+        <div class="flex justify-between items-center mx-3 w-1/3">
+            <h1 class="text-xl font-medium">{{list.name}}</h1>
+        </div>
+        <div class="mx-4">
+            <button mat-icon-button>
+                <mat-icon fontIcon="add"></mat-icon>
+            </button>
+        </div>
+    </div>
+    @for (card of list.cards; track card.name) {
+    <div class="border-2 m-2 rounded-md border-grey-200 min-h-[5rem] cursor-pointer">
+        {{card.name}}
+    </div>
+    }
+</div>

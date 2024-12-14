@@ -1,0 +1,14 @@
+<div class="flex flex-col h-screen">
+    <div
+        class=" top-0 w-full z-50 min-h-14  flex justify-start xl:justify-start items-center h-[3rem] px-4 bg-[#09e8c7] box-border text-white">
+        <a class="flex items-center cursor-pointer"><mat-icon fontIcon="dashboard" class="m-2"></mat-icon> <span
+                class="text-white font-medium text-2xl">Kanban
+                Board</span></a>
+    </div>
+    <div class="flex-1 flex overflow-auto h-auto">
+        @for (list of kanbanData; track list.name) {
+        <app-list-component class="m-4 min-w-80 border-grey-600 rounded-2xl border-2 h-min"
+            [list]="list"></app-list-component>
+        }
+    </div>
+</div>
