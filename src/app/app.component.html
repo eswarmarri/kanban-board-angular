@@ -5,10 +5,28 @@
                 class="text-white font-medium text-2xl">Kanban
                 Board</span></a>
     </div>
-    <div class="flex-1 flex overflow-auto h-auto">
+    <div class="flex-1 flex overflow-auto h-auto " cdkDropListGroup>
         @for (list of kanbanData; track list.name) {
-        <app-list-component class="m-4 min-w-80 border-grey-600 rounded-2xl border-2 h-min"
-            [list]="list"></app-list-component>
+        <div class="m-4 min-w-80 border-grey-600 rounded-2xl border-2 h-min example-list shadow-2xl" cdkDropList
+            [cdkDropListData]="list.cards" (cdkDropListDropped)="drop($event)">
+            <div class="min-h-80 flex flex-col overflow-auto max-h-[88vh] justify-start">
+                <div class="w-full min-h-14 shadow-md flex justify-between items-center">
+                    <div class="flex justify-between items-center mx-3 w-1/3">
+                        <h1 class="text-xl font-medium">{{list.name}}</h1>
+                    </div>
+                    <div class="mx-4">
+                        <button mat-mini-fab>
+                            <mat-icon fontIcon="add"></mat-icon>
+                        </button>
+                    </div>
+                </div>
+                @for (card of list.cards; track card.name) {
+                <div class="border-2 m-2 rounded-md border-grey-200 min-h-[5rem] cursor-pointer shadow-md" cdkDrag>
+                    {{card.name}}
+                </div>
+                }
+            </div>
+        </div>
         }
     </div>
 </div>
