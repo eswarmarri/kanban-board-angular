@@ -1,28 +1,44 @@
 <div class="flex flex-col h-screen">
     <div
-        class=" top-0 w-full z-50 min-h-14  flex justify-start xl:justify-start items-center h-[3rem] px-4 bg-[#09e8c7] box-border text-white">
+        class=" top-0 w-full z-50 min-h-14  flex justify-between  items-center h-[3rem] px-4 bg-[#09e8c7] box-border text-white">
         <a class="flex items-center cursor-pointer"><mat-icon fontIcon="dashboard" class="m-2"></mat-icon> <span
                 class="text-white font-medium text-2xl">Kanban
                 Board</span></a>
+        <button mat-flat-button (click)="addList()">Add New List</button>
     </div>
-    <div class="flex-1 flex overflow-auto h-auto " cdkDropListGroup>
-        @for (list of kanbanData; track list.name) {
+    <div class="flex-1 flex overflow-auto h-auto" #body cdkDropListGroup>
+        @for (list of kanbanData; track list) {
         <div class="m-4 min-w-80 w-80 border-grey-600 rounded-2xl border-2 h-min example-list shadow-2xl">
             <div class="w-full min-h-14 shadow-md flex justify-between items-center">
-                <div class="flex justify-between items-center mx-3 w-full">
-                    <h1 class="text-xl font-medium">{{list.name}}</h1>
+                <div class="flex justify-between items-center w-full group">
+                    @if(editingList==list.name){
+                    <input AppAutoFocus class="w-full min-h-10 border-none px-2" [value]="list.name" #listName
+                        name="listName" (blur)="editingList=''">
+                    }
+                    @else {
+                    <h1 class="text-xl font-medium overflow-hidden text-ellipsis text-nowrap px-2">
+                        {{list.name}}
+                    </h1>
+                    <div class="group-hover:flex w-[30%] hidden px-2">
+                        <button mat-icon-button class="cursor-pointer"
+                            (click)="editingList=list.name"><mat-icon>edit_square_outline</mat-icon></button>
+                        <button mat-icon-button class="cursor-pointer"
+                            (click)="removeList(list)"><mat-icon>delete_outline</mat-icon></button>
+
+                    </div>
+                    }
                 </div>
             </div>
-            <div class="min-h-40 flex flex-col overflow-auto max-h-[75vh] justify-start" cdkDropList
+            <div class="min-h-40 flex flex-col overflow-auto max-h-[75vh] justify-start" cdkDropList #listDiv
                 [cdkDropListData]="list.cards" (cdkDropListDropped)="drop($event)">
-                @for (card of list.cards; track card.name) {
+                @for (card of list.cards; track card) {
                 <div class="hover:animate-pulse group border-2 m-2 rounded-md border-grey-200 h-[7rem] cursor-pointer shadow-md"
-                    cdkDrag>
+                    (click)="editCard(card)" cdkDrag>
                     <div class="w-full min-h-[3rem] flex justify-between items-center border-b-2 border-grey-200">
                         <div class="px-2 overflow-hidden text-ellipsis text-nowrap text-lg">{{card.name}}</div>
                         <div class=" justify-between hidden group-hover:flex">
                             <button mat-icon-button class="cursor-pointer"
-                                (click)="removeCard(card,list)"><mat-icon>delete_outline</mat-icon></button>
+                                (click)="removeCard($event,card,list)"><mat-icon>delete_outline</mat-icon></button>
                         </div>
                     </div>
                     <div class="line-clamp-2 px-2">{{card.description}}</div>
@@ -30,7 +46,7 @@
                 }
             </div>
             <div class="cursor-pointer h-[3rem] border-t-2 border-grey-200 flex justify-center items-center">
-                <button mat-button>Add New Card</button>
+                <button mat-button (click)="addCard(list,listDiv)">Add New Card</button>
             </div>
         </div>
         }

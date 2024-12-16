@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>{{isNew?'Add New Card':'Edit Card'}}</h2>
+<div mat-dialog-content>
+    <mat-form-field class="w-full">
+        <mat-label>Card Name</mat-label>
+        <input matInput AppAutoFocus [(ngModel)]="card.name" />
+    </mat-form-field>
+    <mat-form-field class="w-full">
+        <mat-label>Card Description</mat-label>
+        <textarea matInput [(ngModel)]="card.description" multiple rows="6"></textarea>
+    </mat-form-field>
+</div>
+<mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="">No Thanks</button>
+    <button mat-button [mat-dialog-close]="card">Ok</button>
+</mat-dialog-actions>

@@ -1,9 +1,21 @@
 export class List {
-    name!: string;
-    cards!: Array<Card>;
+    constructor(list?: List) {
+        if (list) {
+            this.name = list.name;
+            this.cards = list.cards
+        }
+    }
+    name: string = '';
+    cards: Array<Card> = [];
 }
 
 export class Card {
-    name!: string;
-    description!: string;
+    constructor(card?: Card) {
+        if (card) {
+            this.name = card.name;
+            this.description = card.description
+        }
+    }
+    name: string = '';
+    description: string = '';
 }
