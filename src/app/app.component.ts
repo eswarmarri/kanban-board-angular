@@ -10,7 +10,7 @@ import {
   CdkDropList,
   CdkDropListGroup,
 } from '@angular/cdk/drag-drop';
-
+import { Card, List } from './Model/list';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +20,7 @@ import {
 })
 export class AppComponent {
   title = 'kanban-board-angular';
-  kanbanData = data;
+  kanbanData: List[] = data;
 
   drop(event: CdkDragDrop<{ name: string; description: string; }[]>) {
     console.log(event)
@@ -34,5 +34,9 @@ export class AppComponent {
         event.currentIndex,
       );
     }
+  }
+
+  removeCard(card: Card, list: List) {
+    list.cards.splice(list.cards.indexOf(card))
   }
 }
