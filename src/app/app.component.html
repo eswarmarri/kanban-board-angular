@@ -7,6 +7,16 @@
         <button mat-flat-button (click)="addList()">Add New List</button>
     </div>
     <div class="flex-1 flex overflow-auto h-auto" #body cdkDropListGroup>
+        @if (kanbanData.length==0) {
+        <div class="w-full h-full bg-gray-200 text-center content-center">
+            <div class="absolute top-[4rem] right-[4rem]">
+                <mat-icon fontIcon="arrow_upward"
+                    class="text-[xxx-large] font-extrabold animate-bounce !h-[40px] !w-[40px]"></mat-icon>
+            </div>
+            Your board seems lonely, start by adding a new list on top right.
+        </div>
+        }
+        @else {
         @for (list of kanbanData; track list) {
         <div class="m-4 min-w-80 w-80 border-grey-600 rounded-2xl border-2 h-min example-list shadow-2xl">
             <div class="w-full min-h-14 shadow-md flex justify-between items-center">
@@ -38,6 +48,12 @@
             </div>
             <div class="min-h-40 flex flex-col overflow-auto max-h-[75vh] justify-start" cdkDropList #listDiv
                 [cdkDropListData]="list.cards" (cdkDropListDropped)="drop($event)">
+                @if (list.cards.length==0) {
+                <div class="relative top-[7rem] text-center">
+                    <mat-icon fontIcon="arrow_downward"
+                        class="text-[xxx-large] font-extrabold animate-bounce !h-[40px] !w-[40px]"></mat-icon>
+                </div>
+                }
                 @for (card of list.cards; track card) {
                 <div class="hover:animate-pulse group border-2 m-2 rounded-md border-grey-200 h-[7rem] cursor-pointer shadow-md"
                     (click)="editCard(card)" cdkDrag>
@@ -56,6 +72,7 @@
                 <button mat-button (click)="addCard(list,listDiv)">Add New Card</button>
             </div>
         </div>
+        }
         }
     </div>
 </div>
