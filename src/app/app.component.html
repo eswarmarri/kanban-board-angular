@@ -13,7 +13,14 @@
                 <div class="flex justify-between items-center w-full group">
                     @if(editingList==list.name){
                     <input AppAutoFocus class="w-full min-h-10 border-none px-2" [value]="list.name" #listName
-                        name="listName" (blur)="editingList=''">
+                        name="listName" (keyup.enter)="list.name=listName.value;editingList=''"
+                        (keyup.esc)="editingList=''" (blur)="editingList=''">
+                    <button matSuffix mat-icon-button (click)="list.name=listName.value;editingList=''">
+                        <mat-icon>done</mat-icon>
+                    </button>
+                    <button matSuffix mat-icon-button (click)="editingList=''">
+                        <mat-icon>close</mat-icon>
+                    </button>
                     }
                     @else {
                     <h1 class="text-xl font-medium overflow-hidden text-ellipsis text-nowrap px-2">
